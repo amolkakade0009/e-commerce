@@ -1,6 +1,6 @@
-package com.amol.E_CommerceWebBackend.Repository;
+package com.amol.E_CommerceWebBackend.repository;
 
-import com.amol.E_CommerceWebBackend.Entity.User;
+import com.amol.E_CommerceWebBackend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

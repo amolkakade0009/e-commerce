@@ -1,7 +1,7 @@
-package com.amol.E_CommerceWebBackend.Controller;
+package com.amol.E_CommerceWebBackend.controller;
 
-import com.amol.E_CommerceWebBackend.Entity.User;
-import com.amol.E_CommerceWebBackend.Service.UserService;
+import com.amol.E_CommerceWebBackend.entity.User;
+import com.amol.E_CommerceWebBackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +32,8 @@ public class UserController {
      }
 
 
-    @PostMapping("save-user")
-    public ResponseEntity<User> saveUser(@RequestBody User user){
+    @PostMapping("register")
+    public ResponseEntity<User> register(@RequestBody User user){
         User user1= userService.SaveUser(user);
         return  new ResponseEntity<>(user1, HttpStatus.OK);
     }
