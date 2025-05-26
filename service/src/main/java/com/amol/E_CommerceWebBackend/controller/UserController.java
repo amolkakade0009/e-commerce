@@ -26,12 +26,6 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
      }
 
-     @PostMapping("login/{email}/{password}")
-     public User login(@PathVariable String email , @PathVariable String password){
-            return null;
-     }
-
-
     @PostMapping("register")
     public ResponseEntity<User> register(@RequestBody User user){
         User user1= userService.SaveUser(user);

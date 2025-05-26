@@ -13,10 +13,12 @@ const Login =  () => {
       return;
     }
 
-    await fetch("http://localhost:8080/user/login" + email + password, {
+    const url = "http://localhost:8080" 
+    await fetch(url+"/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization" : 'Basic ' + btoa(email + ":" + password)
       }
     })
     .then(response => response.json()) // Converts the JSON response from the server (which is a string) into a JavaScript object.

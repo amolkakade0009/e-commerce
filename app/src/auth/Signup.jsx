@@ -6,6 +6,7 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role:"USER"
   });
 
   const [error, setError] = useState("");
@@ -29,7 +30,7 @@ const Signup = () => {
       return;
     }
 
-    await fetch("http://localhost:8080/user/save-user", {
+    await fetch("http://localhost:8080/user/register", {
       method: "POST",
       body: JSON.stringify(form), //Converts a JavaScript object into a JSON string.
       headers: {
@@ -51,6 +52,8 @@ const Signup = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      role:"USER"
+
     });
     setError("");
   };
