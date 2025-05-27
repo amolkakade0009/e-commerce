@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("user")
-@CrossOrigin(origins = "http://localhost:5173") // Allow only React app
+//@CrossOrigin(origins = "http://localhost:5173") // Allow only React app
 
 public class UserController {
 

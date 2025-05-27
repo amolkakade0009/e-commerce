@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UrlContext } from "../context/UrlContext";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -10,6 +11,8 @@ const Signup = () => {
   });
 
   const [error, setError] = useState("");
+  const {url} = useContext(UrlContext)
+  
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -30,7 +33,7 @@ const Signup = () => {
       return;
     }
 
-    await fetch("http://localhost:8080/user/register", {
+    await fetch(url+"/user/register", {
       method: "POST",
       body: JSON.stringify(form), //Converts a JavaScript object into a JSON string.
       headers: {

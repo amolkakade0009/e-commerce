@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UrlContext } from "../context/UrlContext";
+import { useNavigate } from "react-router-dom";
 
 const Login =  () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const {url} = useContext(UrlContext);
+
+  const navigate = useNavigate();
 
   const handleLogin = async(e) => {
     e.preventDefault();
@@ -13,16 +19,24 @@ const Login =  () => {
       return;
     }
 
-    const url = "http://localhost:8080" 
-    await fetch(url+"/user/login", {
+    await fetch(url+"/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization" : 'Basic ' + btoa(email + ":" + password)
-      }
+        "Authorization": "Basic " + btoa(email + ":" + password)
+      },
+        // mode:"no-cors"
     })
     .then(response => response.json()) // Converts the JSON response from the server (which is a string) into a JavaScript object.
-    .then(body => console.log(body))
+    .then(data =>{ 
+      console.log(data)
+      if(data.token){
+         localStorage.setItem("token", data.token);
+          navigate('/')
+      }else{
+        alert("Login failed")
+      }
+    })
     .catch(error => console.error("Error:", error));
 
     // Example login API call (replace with real logic)

@@ -2,6 +2,8 @@ package com.amol.E_CommerceWebBackend.controller;
 
 import com.amol.E_CommerceWebBackend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -12,9 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:5173") // Allow only React app
+
 @RestController
 public class AuthController {
 
@@ -22,7 +25,7 @@ public class AuthController {
     JwtEncoder encoder;
 
     @PostMapping("/login")
-    public String token(Authentication authentication) {
+    public ResponseEntity<?> token(Authentication authentication) {
         Instant now = Instant.now();
         long expiry = 36000L;
         String scope = authentication.getAuthorities().stream()
@@ -37,7 +40,8 @@ public class AuthController {
                 .claim("scope", scope)
                 .build();
 
-        return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+         String token = this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return new ResponseEntity<>(Map.of("token",token), HttpStatus.OK);
     }
 
 }
