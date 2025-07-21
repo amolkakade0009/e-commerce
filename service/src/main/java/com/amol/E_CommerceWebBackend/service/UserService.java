@@ -31,9 +31,14 @@ public class UserService implements UserDetailsService{
     }
 
     public User SaveUser(User user){
+        User user1 = getUserByemail(user.getEmail());
+        if (user1 != null){
+            return null;
+        }else{
         final var encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         return userRepo.save(user);
+        }
     }
 
 

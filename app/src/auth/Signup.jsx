@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UrlContext } from "../context/UrlContext";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -7,18 +8,19 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role:"USER"
+    role: "USER"
   });
 
   const [error, setError] = useState("");
-  const {url} = useContext(UrlContext)
-  
+  const { baseUrl } = useContext(UrlContext)
+  const navigate = useNavigate()
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = async(e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     const { name, email, password, confirmPassword } = form;
@@ -33,16 +35,19 @@ const Signup = () => {
       return;
     }
 
-    await fetch(url+"/user/register", {
+    await fetch(baseUrl + "/user/register", {
       method: "POST",
       body: JSON.stringify(form), //Converts a JavaScript object into a JSON string.
       headers: {
         "Content-Type": "application/json",
       }
     })
-    .then(response => response.json()) // Converts the JSON response from the server (which is a string) into a JavaScript object.
-    .then(body => console.log(body))
-    .catch(error => console.error("Error:", error));
+      .then(response => response.json()) // Converts the JSON response from the server (which is a string) into a JavaScript object.
+      .then(body => {
+        console.log(body)
+        navigate("/login")
+      })
+      .catch(error => console.error("Error:", error));
 
 
 
@@ -55,26 +60,26 @@ const Signup = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      role:"USER"
+      role: "USER"
 
     });
     setError("");
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
       <form
         onSubmit={handleSignup}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm"
+        className="bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl w-full max-w-md border border-white/20"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Sign Up
+        <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">
+          Create Your Account
         </h2>
 
-        {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
+        {error && <p className="text-red-600 mb-4 text-sm text-center">{error}</p>}
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">
+        <div className="mb-5">
+          <label className="block text-gray-700 text-sm font-medium mb-1">
             Name
           </label>
           <input
@@ -82,13 +87,13 @@ const Signup = () => {
             name="name"
             value={form.name}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Your Name"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+            placeholder="John Doe"
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">
+        <div className="mb-5">
+          <label className="block text-gray-700 text-sm font-medium mb-1">
             Email
           </label>
           <input
@@ -96,13 +101,13 @@ const Signup = () => {
             name="email"
             value={form.email}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
             placeholder="you@example.com"
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">
+        <div className="mb-5">
+          <label className="block text-gray-700 text-sm font-medium mb-1">
             Password
           </label>
           <input
@@ -110,13 +115,13 @@ const Signup = () => {
             name="password"
             value={form.password}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
             placeholder="********"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-semibold mb-2">
+          <label className="block text-gray-700 text-sm font-medium mb-1">
             Confirm Password
           </label>
           <input
@@ -124,19 +129,27 @@ const Signup = () => {
             name="confirmPassword"
             value={form.confirmPassword}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
             placeholder="********"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+          className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-105"
         >
           Sign Up
         </button>
+
+        <p className="mt-6 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <a href="/login" className="text-indigo-600 hover:underline font-medium">
+            Log In
+          </a>
+        </p>
       </form>
     </div>
+
   );
 };
 

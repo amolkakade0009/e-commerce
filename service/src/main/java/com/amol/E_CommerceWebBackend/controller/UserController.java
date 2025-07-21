@@ -29,7 +29,12 @@ public class UserController {
     @PostMapping("register")
     public ResponseEntity<User> register(@RequestBody User user){
         User user1= userService.SaveUser(user);
-        return  new ResponseEntity<>(user1, HttpStatus.OK);
+        if (user1 != null ){
+            return  new ResponseEntity<>(user1, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(null , HttpStatus.BAD_REQUEST );
+        }
+
     }
 
 }
