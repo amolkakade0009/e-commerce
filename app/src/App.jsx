@@ -8,6 +8,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Layout from './Layout'
 import Home from './components/Home'
 import { UrlContextProvider } from './context/UrlContext'
+import AddProduct from './components/AddProduct'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path='' element={<Home/>}/>
         <Route path='login' element={<Login/>}/>
         <Route path='signup' element={<Signup/>}/>
+        <Route path='addProduct' element={<AddProduct/>}/>
       </Route>
     )
   )

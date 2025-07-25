@@ -13,6 +13,10 @@ const Header = () => {
     >
       Home
     </a>
+    <a href="/addProduct"
+    className='text-gray-700 hover:text-indigo-600 font-medium transition'>
+      Add Product
+    </a>
     <a
       href="/login"
       className="text-gray-700 hover:text-indigo-600 font-medium transition"

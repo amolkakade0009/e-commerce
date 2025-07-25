@@ -3,6 +3,7 @@ import { UrlContext } from "../context/UrlContext";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  
   const [form, setForm] = useState({
     name: "",
     email: "",
