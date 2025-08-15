@@ -32,6 +32,7 @@ const Login = () => {
         console.log(data)
         if (data.token) {
           localStorage.setItem("token", data.token);
+          console.log("Logging in with:", { email, password });
           navigate('/')
         } else {
           alert("Login failed")
@@ -40,7 +41,6 @@ const Login = () => {
       .catch(error => console.error("Error:", error));
 
     // Example login API call (replace with real logic)
-    console.log("Logging in with:", { email, password });
 
     // Clear form
     setEmail("");

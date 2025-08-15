@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 //@CrossOrigin(origins = "http://localhost:5173") // Allow only React app
 
 public class UserController {
@@ -19,14 +19,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("list-user")
+    @GetMapping("/list-user")
     public ResponseEntity<List<User>> getAllUser(){
 //        return userService.getAllUser();
         List<User> user = userService.getAllUser();
         return new ResponseEntity<>(user,HttpStatus.OK);
      }
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user){
         User user1= userService.SaveUser(user);
         if (user1 != null ){
